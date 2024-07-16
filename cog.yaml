@@ -1,0 +1,46 @@
+# cog.yaml
+build:
+  python_version: "3.8"
+  run:
+    - apt-get update && apt-get install -y libgl1-mesa-glx
+    - pip install -r requirements.txt
+    - python setup.py install
+
+predict:
+  - name: predict
+    gpu: true
+    timeout: 600
+    parameters:
+      - name: crop
+        type: boolean
+        default: false
+        description: "Crop the image"
+      - name: seed
+        type: integer
+        default: 42
+        description: "Random seed"
+      - name: steps
+        type: integer
+        default: 30
+        description: "Number of steps for prediction"
+      - name: category
+        type: string
+        default: "upper_body"
+        description: "Category of the garment"
+      - name: force_dc
+        type: boolean
+        default: false
+        description: "Force dense correspondence"
+      - name: garm_img
+        type: string
+        description: "URL to the garment image"
+      - name: human_img
+        type: string
+        description: "URL to the human image"
+      - name: mask_only
+        type: boolean
+        default: false
+        description: "Use mask only"
+      - name: garment_des
+        type: string
+        description: "Description of the garment"
